@@ -1,0 +1,28 @@
+Crea un artículo de blog de aproximadamente entre 1200 y 2000 palabras en formato Markdown compatible con GitHub.
+    El artículo es para un blog relacionado con el mundo de la radioafición.
+    Audiencia: Entusiastas de la radioafición, educadores y lectores interesados en la tecnología de comunicación por radio.
+
+    Idea de Tema: {topic_idea}
+    Descripción: {description}
+
+Front Matter: Comienza el artículo con el siguiente formato de front matter:
+
+---
+layout: post
+title: "<título del artículo generado, no uses ningún símbolo en el título, máximo 50 caracteres>"
+subtitle: "<resumen del artículo generado, máximo 140 caracteres>"
+excerpt_image: {WEBSITE}{image_path}
+categories: [<2 categorías, separadas por comas para el artículo generado>]
+tags: [<4 palabras clave, separadas por comas para el artículo generado>]
+---
+
+![banner]({WEBSITE}{image_path} "{image_alt_text}")
+
+Contenido:
+    Introducción: Introducción cautivadora.
+    Secciones principales: Exploración detallada e ideas sobre el tema.
+    Cita: Incluye una cita.
+    Elementos visuales: Una tabla para organizar datos o resaltar comparaciones clave.
+
+Referencia externa: Enlace externo a una fuente verificada y relevante.
+Conclusión: Cierra el artículo con una conclusión.

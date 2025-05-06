@@ -24,9 +24,9 @@
 # You can create any custom variable you would like, and they will be accessible
 # in the templates via {{ site.myvariable }}.
 
-title: "Mineral Matrix: An AI Journey into Earth’s Treasures"
-#email: your-email@domain.com
-author: "GeoAI Explorer"
+title: "OndaHertz: Un Viaje Autogenerado al Mundo de la Radioafición"
+#email: tu-email@dominio.com
+author: "Explorador AI de Radio"
 
 # Copyright setting
 # You can use any html code, currently below placeholders are available:
@@ -40,15 +40,15 @@ author: "GeoAI Explorer"
 #   "Copyright (c) 2017-{currentYear} <a href="https://example.com">{author}</a>"
 #   "Copyright © 2017-2021 Foobar"
 #
-copyright: "Unpublished Work (cleft) 2024-{currentYear} {author}"
+copyright: "Obra No Publicada (cleft) 2024-{currentYear} {author}"
 
-description: >- # this means to ignore newlines until "baseurl:"
-  Explore the fascinating world of minerals, gemstones, and mining with Galena.es. 
-  Powered entirely by AI, our site offers in-depth insights and the latest trends in geology, crafted for enthusiasts and experts alike.
+description: >- # esto indica ignorar saltos de línea hasta "baseurl:"
+  Descubre el fascinante mundo de la radioafición con OndaHertz.es. 
+  Totalmente impulsado por IA, nuestro sitio ofrece ideas profundas y las últimas tendencias en tecnología de comunicaciones, diseñado para entusiastas y expertos por igual.
 
 baseurl: "" # the subpath of your site, e.g. /blog
-url: "https://galena.es" # the base hostname & protocol for your site, e.g. https://example.com
-favicon: "/assets/favicon/favicon_galena_32x32.png" # the favicon for your site
+url: "https://OndaHertz.es" # the base hostname & protocol for your site, e.g. https://example.com
+favicon: "/assets/favicon/favicon_OndaHertz_32x32.png" # the favicon for your site
 
 # Yat date format
 # refer to https://shopify.github.io/liquid/filters/date/ if you want to customize this
@@ -72,15 +72,11 @@ enableDNT: "true"
 sitemap: true
 
 # If you want to change site language, you can set lang option
-lang: "en"  # default lang is en
+lang: "es"  # default lang is en
 
 # Translate languges
 # langs refer to https://cloud.google.com/translate/docs/languages
 translate_langs:
-   - lang: es
-     img: https://cdn.countryflags.com/thumbs/spain/flag-400.png
-     text: Spanish
-#
    - lang: en
      img: https://cdn.countryflags.com/thumbs/united-states-of-america/flag-400.png
      text: English
@@ -169,9 +165,9 @@ header_pages:
 # Page default value
 defaults:
    home:
-     heading: "Galena.es: The Future of Geology"
-     subheading: "Exploring Minerals, Gemstones, and Mining with the Power of AI"
-     banner: "/assets/images/banners/Galena_banner_03_minerals_world_map-1784x1024_notext_dark.png"
+     heading: "OndaHertz.es: El Futuro de la Radioafición"
+     subheading: "Explorando la Comunicación Global y la Tecnología de Radio con el Poder de la IA"
+     banner: "/assets/images/banners/OndaHertz_banner_03_1536x1024_Word_map_with_antenas.png"
 
 # Banner default settings
 # These banner settings are for global banner default, but you can also

@@ -59,7 +59,7 @@ AI_ARTICLES_DIRECTORY = "_posts/"
 LOG_FULL_PATH = ""
 
 # Settting the variables for the website
-WEBSITE = "https://galena.es/"
+WEBSITE = "https://www.ondahertz.es/"
 
 # Set up logging.
 # The logging configuration checks if LOG_FULL_PATH is set. 
@@ -71,6 +71,18 @@ else:
     logging.basicConfig(level=logging.INFO, format='%(asctime)s - %(levelname)s - %(message)s')
 
 logging.info("✅ Script started...")
+
+def load_prompt(file_path):
+    """Load a prompt from a file."""
+    try:
+        with open(file_path, 'r') as file:
+            return file.read()
+    except FileNotFoundError:
+        logging.error(f"❌ Prompt file not found: {file_path}")
+        raise
+    except Exception as e:
+        logging.error(f"❌ Error loading prompt file: {file_path}. Error: {e}")
+        raise
 
 def check_env_variable_error(var_name):
     """Check if a required environment variable is set. 
@@ -214,42 +226,7 @@ def get_topics_create_csv_and_notify(api_key, file_path, bot_token, chat_id):
         str: The generated topics as a string.
     """
     # Fetches the next 10 topics.
-    prompt = """
-Objective: Generate 10 engaging and insightful topic ideas for my blog at www.galena.es, focused on exploring the world of minerals, mining, and gemstones. This blog aims to be the go-to destination for geology enthusiasts, jewelry lovers, and anyone curious about the natural world.
-
-Requirements:
-
-- Provide 10 unique and original topic ideas.
-- Format the response in CSV style without a header, directly starting with the content.
-- Constraints:
-  - Topic Idea: Must be no longer than 50 characters, engaging, original, and contain no symbols or punctuation, including periods comas and hyphens.
-  - Description: Must be a brief one-sentence explanation no longer than 150 characters, containing no symbols or punctuation, including periods comas and hyphens.
-  - Do not number each line
-  - Do not use any punctuation in the topic ideas or descriptions
-
-Example for the Format:
-
-Topic Idea, Description
-
-Output Example Structure:
-
-Understanding Mineral Veins, Learn about the formation and economic significance of mineral veins in geological structures
-Gemstones and Their Origins, Explore how different gemstones are formed and the geographical regions where they are found
-Mining Innovations Today, Discover the latest technological advancements in the mining industry and their impact on efficiency and safety
-The Beauty of Raw Gems, Examine the natural aesthetics of raw gemstones and their unique appeal in modern jewelry design
-Sustainable Gemstone Sources, Understand the importance of ethically sourced gemstones and the efforts to ensure environmental sustainability
-Gold Through the Ages, Delve into the historical significance of gold and its evolving role in economy and culture
-Crystal Healing Myths, Evaluate the science and beliefs behind crystals and their purported healing properties
-Artisan Jewelers Stories, Explore how independent jewelers are creating unique pieces with personal and cultural narratives
-Future of Mineral Exploration, Look at emerging trends in the exploration of minerals with a focus on sustainability
-The Science of Gem Cutting, Learn about the precision and artistry involved in cutting gemstones to enhance their beauty and value
-
-Additional Instructions:
-
-- Ensure the topics are relevant to minerals, mining, or gemstones.
-- Consider incorporating current trends, scientific discoveries, or historical perspectives.
-- Aim to provide value to both industry experts and curious learners.
-"""
+    prompt = load_prompt("AI_scripts/prompts/generate_topics.txt")
     client = OpenAI(
             api_key=api_key,  # Pass the api_key directly
         )    
@@ -333,22 +310,8 @@ def get_image_create_file_and_notify(api_key, file_path, bot_token, chat_id, top
     Returns:
         str: The path to the resized image.
     """
-    prompt = f"""
-    Task:
-    Create an engaging illustration for a blog article on our website, ensuring it visually captures the essence of the topic provided.
-
-    Details:
-
-        Topic Idea: {topic_idea}
-        Description: {description}
-
-    Requirements:
-        Focus: Highlight the mineral, emphasizing its distinctive features.
-        Visual Style: Use a vibrant, educational style to capture attention.
-        Audience: Designed for geology fans, educators, and earth science readers.
-        Digital Quality: Optimize for digital display and printing, without guidance texts.
-        Text-Free: Keep the image free of text, captions, and watermarks.
-    """
+    prompt = load_prompt("AI_scripts/prompts/generate_image.txt").format(topic_idea=topic_idea, description=description)
+    logging.info(f"🔄 Generating image with prompt: {prompt}")
 
     def generate_image():
         client = OpenAI(api_key=api_key)
@@ -405,14 +368,10 @@ def generate_image_alt_text(api_key, topic_idea, description):
     Returns:
         str: The generated alt text.
     """
-    prompt = f"""
-Create a concise and descriptive alt text for an image related to the following:
-
-- Topic Idea: {topic_idea}
-- Description: {description}
-
-The blog focuses on minerals, mining, or gemstones. The audience includes geology enthusiasts, educators, and general readers interested in earth sciences.
-"""
+    prompt = load_prompt("AI_scripts/prompts/generate_image_alt_text.txt").format(
+        topic_idea=topic_idea,
+        description=description
+    )
 
     client = OpenAI(api_key=api_key)    
     response = client.chat.completions.create(
@@ -483,35 +442,15 @@ def get_article_content(api_key, topic_idea, description, image_path):
     """
     # Generate alt text for the image
     image_alt_text = generate_image_alt_text(api_key, topic_idea, description)
+    logging.info(f"✅ Generated alt text: {image_alt_text}")
 
-    prompt = f"""
-    Create a blog article of approximately between 1200 to 2000 words in GitHub Flavored Markdown format.
-    The article is for a blog related to the world of minerals, mining, or gemstones.
-    The Audience: Geology enthusiasts, educators, and general readers interested in earth sciences
-    
-    - Topic Idea: {topic_idea}
-    - Description: {description}
-     
-    **Front Matter**: Begin the article with the following front matter format:
-       ---
-       layout: post
-       title: "<title of the generated article, do not use any symbol in the title, max 50 characters>"
-       subtitle: "<summary of the generated article, max 140 characters>"
-       excerpt_image: {WEBSITE}{image_path}
-       categories: [<2 categories, comma separated for the generated article>]
-       tags: [<4 keywords, comma separated for the generated article>]
-       ---
-
-    ![banner]({WEBSITE}{image_path} "{image_alt_text}")
-
-    **Content**:
-       - **Introduction**: Captivating introduction.
-       - **Main Sections**: Detailed exploration and insights into topic.
-       - **Quote**: Include a quote.
-       - **Visual Elements**: A table to organize data or highlight key comparisons.
-    **External Reference**: External link reference to a verified and relevant resource.
-    **Conclusion**: Wrap up the article with a conclusion.
-    """
+    prompt = load_prompt("AI_scripts/prompts/generate_article.txt").format(
+        topic_idea=topic_idea,
+        description=description,
+        image_path=image_path,
+        WEBSITE=WEBSITE,
+        image_alt_text=image_alt_text
+    )
     client = OpenAI(api_key=api_key)    
     response = client.chat.completions.create(
         model="gpt-4",

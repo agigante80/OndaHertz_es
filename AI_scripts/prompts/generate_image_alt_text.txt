@@ -1,0 +1,6 @@
+Crea un texto alternativo (alt text) conciso y descriptivo para una imagen relacionada con lo siguiente:
+
+* **Idea del Tema**: {topic_idea}
+* **Descripción**: {description}
+
+El blog se centra en el mundo de la radioafición. La audiencia incluye entusiastas de la comunicación por radio, aficionados a la tecnología y lectores interesados en la conexión global.

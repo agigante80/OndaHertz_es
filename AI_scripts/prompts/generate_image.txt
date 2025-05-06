@@ -1,0 +1,15 @@
+Tarea:
+Crea una ilustración atractiva para un artículo de blog en nuestro sitio web, asegurándote de que capture visualmente la esencia del tema proporcionado.
+
+Detalles:
+
+* **Idea del Tema**: {topic_idea}
+* **Descripción**: {description}
+
+Requisitos:
+
+* **Enfoque**: Destaca la conexión global y la tecnología de la radioafición, subrayando los aspectos únicos de este ámbito.
+* **Estilo Visual**: Usa un estilo vibrante y educativo que atraiga la atención.
+* **Audiencia**: Diseñado para entusiastas de la radioafición, educadores y lectores interesados en la comunicación global.
+* **Calidad Digital**: Optimizado para pantalla digital e impresión, sin textos orientativos.
+* **Sin Texto**: Mantén la imagen libre de texto, subtítulos y marcas de agua.
