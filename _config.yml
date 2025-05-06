@@ -40,7 +40,7 @@ author: "Explorador AI de Radio"
 #   "Copyright (c) 2017-{currentYear} <a href="https://example.com">{author}</a>"
 #   "Copyright © 2017-2021 Foobar"
 #
-copyright: "Obra No Publicada (cleft) 2024-{currentYear} {author}"
+copyright: "Unpublished Work (cleft) 2024-{currentYear} {author}"
 
 description: >- # esto indica ignorar saltos de línea hasta "baseurl:"
   Descubre el fascinante mundo de la radioafición con OndaHertz.es. 
@@ -65,7 +65,7 @@ yat:
 # content_width: "920px"
 
 # Google analytics - GA4
-google_analytics: G-KM50L046E8
+google_analytics: G-VP0XWS2YJR
 enableDNT: "true"
 
 # If you want to generate website sitemap, you can set true
