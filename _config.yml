@@ -167,7 +167,7 @@ defaults:
    home:
      heading: "OndaHertz.es: El Futuro de la Radioafición"
      subheading: "Explorando la Comunicación Global y la Tecnología de Radio con el Poder de la IA"
-     banner: "/assets/images/banners/OndaHertz_banner_03_1536x1024_Word_map_with_antenas.png"
+     banner: "/assets/images/banners/OndaHertz_banner_03_1536x1024_Word_map_with_antenas_darker.png"
 
 # Banner default settings
 # These banner settings are for global banner default, but you can also
