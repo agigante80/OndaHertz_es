@@ -47,7 +47,7 @@ description: >- # esto indica ignorar saltos de línea hasta "baseurl:"
   Totalmente impulsado por IA, nuestro sitio ofrece ideas profundas y las últimas tendencias en tecnología de comunicaciones, diseñado para entusiastas y expertos por igual.
 
 baseurl: "" # the subpath of your site, e.g. /blog
-url: "https://OndaHertz.es" # the base hostname & protocol for your site, e.g. https://example.com
+url: "https://www.ondahertz.es" # the base hostname & protocol for your site, e.g. https://example.com
 favicon: "/assets/favicon/favicon_OndaHertz_32x32.png" # the favicon for your site
 
 # Yat date format
