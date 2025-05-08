@@ -1,4 +1,4 @@
-Crea un artículo de blog de aproximadamente entre 1200 y 2000 palabras en formato Markdown compatible con GitHub.
+Crea un artículo de blog de aproximadamente entre 1800 y 3000 palabras en formato Markdown compatible con GitHub.
     El artículo es para un blog relacionado con el mundo de la radioafición.
     Audiencia: Entusiastas de la radioafición, educadores y lectores interesados en la tecnología de comunicación por radio.
 
