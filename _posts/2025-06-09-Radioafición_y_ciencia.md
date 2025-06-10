@@ -7,7 +7,7 @@ categories: [Ciencia, Radioafición]
 tags: [Investigación, Colaboración, Tecnología, Comunicación]
 ---
 
-![banner](https://www.ondahertz.es/assets/images/Radioaficion_y_ciencia.png "Imagen de un radioaficionado en su estación de radio, rodeado de equipos de comunicación y mapas del mundo, simbolizando la conexión global y la contribución de los radioaficionados a la ciencia y la investigación.")
+![banner](https://www.ondahertz.es/assets/images/Radioafición_y_ciencia.png "Imagen de un radioaficionado en su estación de radio, rodeado de equipos de comunicación y mapas del mundo, simbolizando la conexión global y la contribución de los radioaficionados a la ciencia y la investigación.")
 
 # Introducción
 
