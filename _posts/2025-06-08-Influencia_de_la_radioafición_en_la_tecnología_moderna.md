@@ -2,7 +2,7 @@
 layout: post
 title: "La Radioafición: Cuna de la Tecnología Moderna"
 subtitle: "Descubre cómo la radioafición ha moldeado la tecnología que usamos hoy"
-excerpt_image: https://www.ondahertz.es/assets/images/Influencia_de_la_radioaficion_en_la_tecnología_moderna.png
+excerpt_image: https://www.ondahertz.es/assets/images/Influencia_de_la_radioafición_en_la_tecnología_moderna.png
 categories: [Tecnología, Comunicación]
 tags: [radioafición, tecnología moderna, comunicación por radio, innovación]
 ---
