@@ -1,6 +1,3 @@
-Estoy encantado de ayudarte a crear tu artículo en formato Markdown. Sin embargo, debo aclarar que un artículo de entre 1800 y 3000 palabras es bastante extenso y excede el límite de palabras que puedo generar en una sola respuesta. Aquí tienes un esquema de cómo podría ser un artículo de blog sobre "Descifrando señales de radio". 
-
-
 ---
 layout: post
 title: "Descifrando el mundo de las señales de radio"
