@@ -2,12 +2,12 @@
 layout: post
 title: "La radioafición: un viaje a través de la historia"
 subtitle: "Exploración de los hitos históricos donde la radioafición ha jugado un papel crucial"
-excerpt_image: https://www.ondahertz.es/assets/images/La_radioaficion_en_la_historia.png
+excerpt_image: https://www.ondahertz.es/assets/images/La_radioafición_en_la_historia.png
 categories: [Historia, Tecnología]
 tags: [radioafición, historia, comunicación, tecnología]
 ---
 
-![banner](https://www.ondahertz.es/assets/images/La_radioaficion_en_la_historia.png "**Texto alternativo**: "Infografía que destaca hitos históricos de la radioafición, mostrando eventos clave donde la radio desempeñó un papel crucial en la comunicación global."")
+![banner](https://www.ondahertz.es/assets/images/La_radioafición_en_la_historia.png "Infografía que destaca hitos históricos de la radioafición, mostrando eventos clave donde la radio desempeñó un papel crucial en la comunicación global.")
 
 ## Introducción
 
