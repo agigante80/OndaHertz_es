@@ -7,7 +7,7 @@ categories: [Tecnología, Ciencia]
 tags: [Radioafición, Investigación Científica, Comunicaciones, Desarrollo Tecnológico]
 ---
 
-![banner](https://www.ondahertz.es/assets/images/Radioaficion_y_ciencia.png ""Imagen de un operador de radioafición en su estación, rodeado de equipos de comunicación y mapas del mundo, simbolizando la intersección entre la radioafición y la investigación científica."")
+![banner](https://www.ondahertz.es/assets/images/Radioaficion_y_ciencia.png "Imagen de un operador de radioafición en su estación, rodeado de equipos de comunicación y mapas del mundo, simbolizando la intersección entre la radioafición y la investigación científica.")
 
 # **Introducción**
 
