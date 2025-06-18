@@ -2,12 +2,12 @@
 layout: post
 title: "Radioafición y Ciencia: Una Sinergia Revolucionaria"
 subtitle: "Descubra cómo la radioafición está impulsando el avance de la investigación y el desarrollo científico."
-excerpt_image: https://www.ondahertz.es/assets/images/Radioaficion_y_ciencia.png
+excerpt_image: https://www.ondahertz.es/assets/images/Radioafición_y_ciencia.png
 categories: [Tecnología, Ciencia]
 tags: [Radioafición, Investigación Científica, Comunicaciones, Desarrollo Tecnológico]
 ---
 
-![banner](https://www.ondahertz.es/assets/images/Radioaficion_y_ciencia.png "Imagen de un operador de radioafición en su estación, rodeado de equipos de comunicación y mapas del mundo, simbolizando la intersección entre la radioafición y la investigación científica.")
+![banner](https://www.ondahertz.es/assets/images/Radioafición_y_ciencia.png "Imagen de un operador de radioafición en su estación, rodeado de equipos de comunicación y mapas del mundo, simbolizando la intersección entre la radioafición y la investigación científica.")
 
 # **Introducción**
 
