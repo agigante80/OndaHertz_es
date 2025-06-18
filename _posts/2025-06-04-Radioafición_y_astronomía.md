@@ -1,6 +1,3 @@
-# Comenzando
-
-
 ---
 layout: post
 title: "Radioafición y Astronomía: Un vínculo estelar"
