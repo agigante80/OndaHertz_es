@@ -8,7 +8,7 @@ categories: [Tecnología de la comunicación, Astronomía]
 tags: [Radioafición, Astronomía, Comunicación por radio, Exploración espacial]
 ---
 
-![banner](https://www.ondahertz.es/assets/images/Radioafición_y_astronomía.png "")
+![banner](https://www.ondahertz.es/assets/images/Radioafición_y_astronomía.png)
 
 # Introducción
 
