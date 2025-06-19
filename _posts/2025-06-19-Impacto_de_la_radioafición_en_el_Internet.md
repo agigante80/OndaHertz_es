@@ -2,12 +2,12 @@
 layout: post
 title: "Impacto de la Radioafición en el Desarrollo de Internet"
 subtitle: "Explorando la influencia de la radioafición en la evolución de la red de redes"
-excerpt_image: https://www.ondahertz.es/assets/images/Impacto_de_la_radioaficion_en_el_Internet.png
+excerpt_image: https://www.ondahertz.es/assets/images/Impacto_de_la_radioafición_en_el_Internet.png
 categories: [Tecnología, Comunicación]
 tags: [Radioafición, Internet, Desarrollo Tecnológico, Comunicación]
 ---
 
-![banner](https://www.ondahertz.es/assets/images/Impacto_de_la_radioaficion_en_el_Internet.png ""Infografía que ilustra el impacto de la radioafición en el desarrollo de Internet, mostrando conexiones entre estaciones de radio, redes de comunicación y la evolución de la tecnología digital."")
+![banner](https://www.ondahertz.es/assets/images/Impacto_de_la_radioafición_en_el_Internet.png "Infografía que ilustra el impacto de la radioafición en el desarrollo de Internet, mostrando conexiones entre estaciones de radio, redes de comunicación y la evolución de la tecnología digital.")
 
 # Introducción
 
