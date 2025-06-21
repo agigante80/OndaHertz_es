@@ -2,12 +2,12 @@
 layout: post
 title: "Radioafición y la Exploración Espacial: Comunicación Más Allá de las Estrellas"
 subtitle: "Descubre cómo los radioaficionados pueden alcanzar las estrellas a través de la comunicación con satélites y estaciones espaciales."
-excerpt_image: https://www.ondahertz.es/assets/images/Radioaficion_y_la_exploración_espacial.png
+excerpt_image: https://www.ondahertz.es/assets/images/Radioafici%C3%B3n_y_la_exploraci%C3%B3n_espacial.png
 categories: [Radioafición, Exploración Espacial]
 tags: [comunicación por radio, satélites, tecnología, radioaficionados]
 ---
 
-![banner](https://www.ondahertz.es/assets/images/Radioaficion_y_la_exploracion_espacial.png "Imagen de un radioaficionado operando un equipo de radio en un entorno al aire libre, con un fondo de satélites y estrellas, simbolizando la comunicación entre la radioafición y la exploración espacial.")
+![banner](https://www.ondahertz.es/assets/images/Radioafici%C3%B3n_y_la_exploraci%C3%B3n_espacial.png) "Imagen de un radioaficionado operando un equipo de radio en un entorno al aire libre, con un fondo de satélites y estrellas, simbolizando la comunicación entre la radioafición y la exploración espacial.")
 
 # Introducción
 
