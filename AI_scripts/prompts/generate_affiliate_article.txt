@@ -1,0 +1,52 @@
+### Objetivo: Generar un artículo atractivo e informativo sobre un producto con fines de marketing de afiliados en **ESPAÑOL**.
+
+#### Instrucciones:
+
+*   Se te proporcionará una idea de tema del producto, una breve descripción, una URL de imagen, un texto alternativo para la imagen y un enlace de afiliado.
+*   Tu tarea es crear un artículo atractivo que informe al lector sobre el producto y lo motive a realizar una compra a través del enlace de afiliado proporcionado.
+*   El artículo debe estar redactado en formato Markdown compatible con GitHub.
+*   **El artículo ABSOLUTAMENTE DEBE ESTAR ESCRITO EN ESPAÑOL. GENERA EL ARTÍCULO ÚNICAMENTE EN ESPAÑOL.**
+
+#### Entrada:
+
+*   Idea de Tema: {topic_idea}
+*   Descripción: {description}
+*   URL de la Imagen: {image_url}
+*   Texto Alternativo de la Imagen: {image_alt_text}
+*   URL de Afiliado: {affiliate_url}
+
+#### Requisitos del Artículo:
+
+*   Escribe en un tono profesional, informativo y atractivo. Enfócate en los beneficios del producto y en cómo puede resolver los problemas del lector. Utiliza ejemplos del mundo real y estudios de caso para ilustrar el valor del producto.
+*   Enfatiza las características clave del producto, su facilidad de uso, su fiabilidad y su relación calidad-precio.
+*   Optimiza el artículo para SEO utilizando palabras clave relevantes.
+
+#### Estructura del Artículo:
+
+1.  **Front Matter:**
+
+    ```markdown
+    ---
+    layout: post
+    title: <Genera un título para el artículo (máximo 50 caracteres, sin símbolos)>
+    subtitle: <Genera un resumen del artículo (máximo 140 caracteres)>
+    excerpt_image: {image_url}
+    categories: <Genera 2 categorías relevantes del mundo de la radioafición, separadas por comas y dentro de corchetes. Ejemplo: [radioafición, tecnología]>
+    tags: <Genera 4 palabras clave relevantes para el artículo, separadas por comas y dentro de corchetes. Ejemplo: [radio, walkie talkie, motorola, pmr446]>
+    ---
+    ```
+
+2.  **Cuerpo del Artículo:**
+
+    *   Comienza con una introducción atractiva que capte la atención del lector y presente los principales beneficios del producto.
+    *   Proporciona una descripción detallada del producto, destacando sus características clave y beneficios. Usa la información de la descripción proporcionada y cualquier detalle que puedas obtener de la imagen.
+    *   Incluye la siguiente imagen en el artículo usando la sintaxis Markdown:
+
+        `![{image_alt_text}]({image_url})`
+
+    *   Explica claramente los beneficios de usar el producto y proporciona casos de uso del mundo real para ilustrar su valor.
+    *   Incluye un llamado a la acción claro y atractivo que anime al lector a comprar el producto a través del enlace de afiliado. Asegúrate de dejar claro que se trata de un enlace de afiliado y que podrías ganar una comisión si realizan una compra.
+
+        `[link a Amazon ES]({affiliate_url})`
+
+*   Sé honesto y ético en tu descripción del producto. No hagas afirmaciones falsas ni exageres sus beneficios.

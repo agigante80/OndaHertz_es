@@ -1,15 +1,21 @@
-Tarea:
-Crea una ilustración atractiva para un artículo de blog en nuestro sitio web, asegurándote de que capture visualmente la esencia del tema proporcionado.
+Task:
+Create an attractive illustration for a blog article on our website that visually captures the essence of the given topic.
 
-Detalles:
+Details:
 
-* **Idea del Tema**: {topic_idea}
-* **Descripción**: {description}
+* **Topic Idea**: {topic_idea}
+* **Description**: {description}
 
-Requisitos:
+Requirements:
 
-* **Enfoque**: Destaca la conexión global y la tecnología de la radioafición, subrayando los aspectos únicos de este ámbito.
-* **Estilo Visual**: Usa un estilo vibrante y educativo que atraiga la atención.
-* **Audiencia**: Diseñado para entusiastas de la radioafición, educadores y lectores interesados en la comunicación global.
-* **Calidad Digital**: Optimizado para pantalla digital e impresión, sin textos orientativos.
-* **Sin Texto**: Mantén la imagen libre de texto, subtítulos y marcas de agua.
+* **Focus**: Highlight the global connection and technology relevant to the website {WEBSITE_TITLE} ({WEBSITE_URL}), emphasizing unique aspects of the subject.
+* **Visual Style**: Use a vibrant and educational style that draws attention.
+* **Audience**: Designed for {WEBSITE_AUDIENCE}.
+* **Digital Quality**: Optimized for digital screens and print, without any guiding text.
+* **No Text**: Keep the image free of text, captions, and watermarks.
+
+Website context:
+
+- Description: {WEBSITE_DESCRIPTION}
+- Keywords: {WEBSITE_KEYWORDS}
+- Language: {WEBSITE_LANGUAGE}

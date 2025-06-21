@@ -1,26 +1,22 @@
-Objetivo: Generar 10 ideas atractivas y perspicaces para mi blog en OndaHertz.es, centrado en explorar el mundo de la radioafición. Este blog busca ser el destino preferido para entusiastas de la comunicación por radio, aficionados a la tecnología y curiosos por la conexión global.
+Objective: Generate attractive and insightful blog topic ideas for my blog {WEBSITE_TITLE} ({WEBSITE_URL}), focused on {WEBSITE_DESCRIPTION}.
 
-Requisitos:
-    Proporcione 10 ideas únicas y originales.
-    Formatee la respuesta en estilo CSV sin encabezado, comenzando directamente con el contenido.
+Requirements:
+    Provide 50 unique and original ideas.
+    Format the response in CSV style without a header, starting directly with the content.
+    Each field must be enclosed in double quotes. Example: "Topic Idea","Description"
+    Each line should be a CSV record with two fields: "Topic Idea","Description".  
 
-    Restricciones:
-        Idea de Tema: No debe superar los 50 caracteres, debe ser atractiva, original y no contener símbolos ni puntuación, incluidas comas, puntos y guiones.
-        Descripción: Debe ser una breve explicación de una oración que no exceda los 150 caracteres, sin símbolos ni puntuación, incluidas comas, puntos y guiones.
-        No enumere cada línea.
-        No use puntuación en las ideas ni en las descripciones.
+    Constraints:
+        Topic Idea: Must not exceed 50 characters, should be catchy, original, and must not contain symbols.
+        Description: Should be a brief one-sentence explanation maximum 150 characters, without symbols.
+        Do not number each line.
+        Do not use symbols in the ideas or descriptions.
 
-Ejemplo para el formato:
-Idea de Tema, Descripción
+    Site keywords: {WEBSITE_KEYWORDS}
+    Target audience: {WEBSITE_AUDIENCE}
+    Language: {WEBSITE_LANGUAGE}
 
-Estructura de salida de ejemplo:
-Construye tu propia antena, Aprende a diseñar y construir una antena casera eficiente para mejorar tus transmisiones de radio
-Historia de la radioafición, Descubre cómo surgió la radioafición y su impacto en la comunicación global y la tecnología
-Frecuencias internacionales, Explora las bandas de frecuencias usadas en la radioafición y su reglamentación a nivel mundial
-Eventos de radioaficionados, Conoce los encuentros y concursos más populares en la comunidad de radioaficionados
-La magia del código Morse, Aprende sobre el uso del código Morse en la radioafición y cómo dominarlo con práctica constante
-Equipos para principiantes, Descubre los equipos básicos ideales para iniciarte en el mundo de la radioafición
-Comunidad global por radio, Explora cómo los radioaficionados conectan con personas de todo el mundo a través de ondas radiales
-Soluciones para interferencias, Aprende técnicas para identificar y solucionar problemas comunes de interferencias en tus transmisiones
-Radioafición en emergencias, Entiende cómo los radioaficionados apoyan en desastres naturales con comunicación vital
-Explorando modos digitales, Conoce las modalidades digitales en la radioafición y sus beneficios para transmisiones modernas
+Example output format:
+"How to get started","A simple guide for beginners to understand the basics"
+"Latest trends","An overview of the most recent developments in the field"
+"Essential tools","A summary of the most useful tools and resources available"
