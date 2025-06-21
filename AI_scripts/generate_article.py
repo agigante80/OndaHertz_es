@@ -64,7 +64,7 @@ WEBSITE_LANGUAGE = "Spanish"  # Define the main website language for the content
 
 CURRENT_DATE = datetime.now().strftime("%Y-%m-%d-%H%M")
 
-AFFILIATE_CONTENT_DIRECTORY = "affiliate_content/"  # Define the base directory
+AFFILIATE_CONTENT_DIRECTORY = "affiliate_content/"  
 
 # Ensure the affiliate content directory exists
 os.makedirs(AFFILIATE_CONTENT_DIRECTORY, exist_ok=True)
