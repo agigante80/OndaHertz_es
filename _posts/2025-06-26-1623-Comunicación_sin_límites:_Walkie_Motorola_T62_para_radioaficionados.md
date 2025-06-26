@@ -1,4 +1,3 @@
-```markdown
 ---
 layout: post
 title: Explora el mundo de la radioafición con el Walkie Motorola T62

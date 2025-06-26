@@ -81,7 +81,6 @@ else:
 logging.info("✅ Script started...")
 
 def load_prompt(file_path):
-    """Load a prompt from a file."""
     try:
         with open(file_path, 'r') as file:
             return file.read()
@@ -93,15 +92,6 @@ def load_prompt(file_path):
         raise
 
 def check_env_variable_error(var_name):
-    """Check if a required environment variable is set. 
-    Log an error and raise an exception if missing.
-    
-    Args:
-        var_name (str): The name of the environment variable to check.
-    
-    Returns:
-        str: The value of the environment variable.
-    """
     value = os.getenv(var_name)
     if not value:
         logging.error(f"❌ [Environment Variable Error] {var_name} is missing! Please set it as an environment variable.")
@@ -112,15 +102,6 @@ def check_env_variable_error(var_name):
     return value
 
 def check_env_variable_warning(var_name):
-    """Check if an optional environment variable is set. 
-    Log a warning if missing.
-    
-    Args:
-        var_name (str): The name of the environment variable to check.
-    
-    Returns:
-        str or None: The value of the environment variable, or None if not set.
-    """
     value = os.getenv(var_name)
     if not value:
         logging.warning(f"⚠️ [Environment Variable Warning] {var_name} is missing! Please set it as an environment variable.")
@@ -131,11 +112,6 @@ def check_env_variable_warning(var_name):
     return value
 
 def initialize_csv(file_path):
-    """Ensure a CSV file exists. Create it if it does not exist.
-    
-    Args:
-        file_path (str): The path to the CSV file.
-    """
     try:
         if not os.path.exists(file_path):
             with open(file_path, 'w', newline='') as file:
@@ -160,22 +136,6 @@ def write_to_csv(file_path, article_url, topic_idea, description):
 
 
 def retry_with_backoff(func, max_retries=3, initial_delay=1, backoff_factor=2, *args, **kwargs):
-    """Retry a function with exponential backoff in case of failure.
-    
-    Args:
-        func (callable): The function to retry.
-        max_retries (int): Maximum number of retries.
-        initial_delay (int): Initial delay in seconds before retrying.
-        backoff_factor (int): Factor by which the delay increases after each retry.
-        *args: Positional arguments for the function.
-        **kwargs: Keyword arguments for the function.
-    
-    Returns:
-        Any: The return value of the function if successful.
-    
-    Raises:
-        Exception: The last exception raised if all retries fail.
-    """
     delay = initial_delay
     for attempt in range(max_retries):
         try:
@@ -190,13 +150,6 @@ def retry_with_backoff(func, max_retries=3, initial_delay=1, backoff_factor=2, *
                 raise
 
 def send_telegram_message(message):
-    """Send a message to a Telegram chat using a bot with retry logic.
-    
-    Args:
-        bot_token (str): The Telegram bot token.
-        chat_id (str): The Telegram chat ID.
-        message (str): The message to send.
-    """
     if not TELEGRAM_BOT_TOKEN or not TELEGRAM_CHAT_ID:
         logging.warning("⚠️ [Telegram Warning] Telegram message not sent due to missing TELEGRAM_BOT_TOKEN or TELEGRAM_CHAT_ID.")
         return
@@ -216,18 +169,6 @@ def send_telegram_message(message):
     retry_with_backoff(send_request)
 
 def get_topics_create_csv_and_notify():
-    """Generate 10 blog topic ideas using OpenAI, save them to a CSV file, and notify via Telegram.
-    
-    Args:
-        api_key (str): The OpenAI API key.
-        file_path (str): The path to the CSV file for storing topics.
-        bot_token (str): The Telegram bot token.
-        chat_id (str): The Telegram chat ID.
-    
-    Returns:
-        str: The generated topics as a string.
-    """
-    # Fetches the next 10 topics.
     prompt = load_prompt("AI_scripts/prompts/generate_topics.txt").format(
         WEBSITE_URL=WEBSITE_URL,
         WEBSITE_TITLE=WEBSITE_TITLE,
@@ -286,20 +227,6 @@ def get_topics_create_csv_and_notify():
     return topics
 
 def fetch_topic_and_description():
-    """Fetch the next topic idea and description from a CSV file.
-    If the topic idea is an ID and https url, then load content from the affiliate folder and generate an affiliate article
-    If the topic is idea and description then generate an article
-    If empty generate new topics and start the process again
-
-    Args:
-        file_path (str): The path to the CSV file.
-        api_key (str): The OpenAI API key.
-        bot_token (str): The Telegram bot token.
-        chat_id (str): The Telegram chat ID.
-
-    Returns:
-        tuple: A tuple containing the topic idea and description.
-    """
     with open(FILE_PATH_NEW_TOPICS, 'r') as infile:
         reader = csv.reader(infile)
         lines = list(reader)
@@ -420,19 +347,6 @@ def handle_invalid_csv_line(lines, topic_data, e):
     return content_type
 
 def get_image_create_file_and_notify(topic_idea, description):
-    """Generate an image using OpenAI, save it locally, and notify via Telegram with retry logic.
-    
-    Args:
-        api_key (str): The OpenAI API key.
-        file_path (str): The directory path to save the image.
-        bot_token (str): The Telegram bot token.
-        chat_id (str): The Telegram chat ID.
-        topic_idea (str): The topic idea for the image.
-        description (str): The description for the image.
-    
-    Returns:
-        str: The path to the resized image.
-    """
     prompt = load_prompt("AI_scripts/prompts/generate_image.txt").format(
             WEBSITE_URL=WEBSITE_URL,
             WEBSITE_TITLE=WEBSITE_TITLE,
@@ -490,16 +404,6 @@ def get_image_create_file_and_notify(topic_idea, description):
         return None
     
 def generate_image_alt_text(topic_idea, description, image_path):
-    """Generate alt text for an image using OpenAI Vision API and a prompt template.
-
-    Args:
-        topic_idea (str): The topic idea for the image.
-        description (str): The description for the image.
-        image_path (str): The path to the image.
-
-    Returns:
-        str: The generated alt text.
-    """
     try:
         with open(image_path, "rb") as image_file:
             img_base64 = base64.b64encode(image_file.read()).decode('utf-8')
@@ -551,15 +455,6 @@ def generate_image_alt_text(topic_idea, description, image_path):
         return "Alt text generation failed."
 
 def notify_indexnow(article_url):
-    """Notify IndexNow servers about a new or updated URL with retry logic.
-    
-    Args:
-        api_key (str): The IndexNow API key.
-        url (str): The URL to notify.
-    
-    Returns:
-        bool: True if all requests were sent successfully.
-    """
     indexnow_servers = [
         "https://api.indexnow.org/indexnow",
         "https://www.bing.com/indexnow",
@@ -586,7 +481,6 @@ def notify_indexnow(article_url):
     return True
 
 def get_article_content(topic_idea, description, image_path, content_type, affiliate_article_id):
-    """Generate a blog article using OpenAI and save it to a file."""
     if content_type == "affiliate":
         logging.info("✅ Content type is affiliate, generating affiliate article...")
         affiliate_folder = os.path.join(AFFILIATE_CONTENT_DIRECTORY, affiliate_article_id)
@@ -705,11 +599,6 @@ def get_article_content(topic_idea, description, image_path, content_type, affil
         return article_file_path
 
 def check_and_load_env_variables():
-    """Check and load required and optional environment variables.
-    
-    Returns:
-        tuple: A tuple containing the values of the environment variables.
-    """
     logging.info("🔍 Checking environment variables...")
     OPENAI_API_KEY = check_env_variable_error("OPENAI_API_KEY")
     TELEGRAM_BOT_TOKEN = check_env_variable_warning("TELEGRAM_BOT_TOKEN")
@@ -718,44 +607,17 @@ def check_and_load_env_variables():
     return OPENAI_API_KEY, TELEGRAM_BOT_TOKEN, TELEGRAM_CHAT_ID, INDEXNOW_API_KEY
 
 def ensure_directories_exist(*directories):
-    """Ensure that the specified directories exist. Create them if they do not exist.
-    
-    Args:
-        *directories (str): The paths of the directories to check or create.
-    
-    Returns:
-        tuple: The input directories.
-    """
     for directory in directories:
         os.makedirs(directory, exist_ok=True)
         logging.info(f"✅ Ensured directory exists: {directory}")
     return directories
 
 def initialize_files(*file_paths):
-    """Ensure that the specified CSV files exist. Create them if they do not exist.
-    
-    Args:
-        *file_paths (str): The paths of the CSV files to check or create.
-    
-    Returns:
-        tuple: The input file paths.
-    """
     for file_path in file_paths:
         initialize_csv(file_path)
     return file_paths
 
 def create_article_with_image():
-    """Generate an article with an image, archive the topic, and notify via Telegram and IndexNow.
-
-    Args:
-        api_key (str): The OpenAI API key.
-        bot_token (str): The Telegram bot token.
-        chat_id (str): The Telegram chat ID.
-        file_path_new (str): The path to the CSV file for new topics.
-        file_path_archived (str): The path to the CSV file for archived topics.
-        file_path_error (str): The path to the CSV file for error topics.
-        indexnow_api_key (str): The IndexNow API key.
-    """
     exception_count = 0  # Counter to track the number of exceptions
     max_exceptions = 3  # Maximum number of allowed exceptions
 
@@ -860,8 +722,6 @@ def create_article_with_image():
         logging.error(f"❌ Maximum number of exceptions ({max_exceptions}) reached. Stopping the process.")
         send_telegram_message(f"❌ Maximum number of exceptions ({max_exceptions}) reached. Stopping the process.")
 def main():
-    """Main function to initialize environment variables, directories, and files, 
-    and generate articles with images."""
     OPENAI_API_KEY, TELEGRAM_BOT_TOKEN, TELEGRAM_CHAT_ID, INDEXNOW_API_KEY = check_and_load_env_variables()
     ensure_directories_exist(AI_TOPICS_DIRECTORY, AI_IMAGES_DIRECTORY, AI_ARTICLES_DIRECTORY)
     
