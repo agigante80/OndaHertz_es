@@ -875,10 +875,11 @@ def main():
     ensure_directories_exist(AI_TOPICS_DIRECTORY, AI_IMAGES_DIRECTORY, AI_ARTICLES_DIRECTORY)
     
     # Ensure the files are created if they don't exist
-    initialize_csv(FILE_PATH_NEW_TOPICS)
+    """initialize_csv(FILE_PATH_NEW_TOPICS)
     initialize_csv(FILE_PATH_ARCHIVED_TOPICS)
     initialize_csv(FILE_PATH_ERROR_TOPICS)
-    initialize_csv(FILE_PATH_ARCHIVED_AFFILIATE_TOPICS)
+    initialize_csv(FILE_PATH_ARCHIVED_AFFILIATE_TOPICS)"""
+    FILE_PATH_NEW_TOPICS, FILE_PATH_ARCHIVED_TOPICS, FILE_PATH_ERROR_TOPICS, FILE_PATH_ARCHIVED_AFFILIATE_TOPICS = initialize_files()
    
     # REQUESTING THE ARTICLE!!!
     logging.info("🔄 Initializing OpenAI requests...")
