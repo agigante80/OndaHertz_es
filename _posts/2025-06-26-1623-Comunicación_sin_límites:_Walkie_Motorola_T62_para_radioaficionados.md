@@ -7,7 +7,9 @@ categories: [Tecnología, Radioafición]
 tags: [radioafición, tecnología, comunicación global, Ondahertz]
 ---
 
-![banner](https://www.ondahertz.es/affiliate_content/B07C37W5DZ/618jjAxwv1L._AC_SL1500_.jpg "Walkie Talkies Motorola T62, ideales para radioafición y comunicación en exteriores.")
+<p align="center">
+  <img src="https://www.ondahertz.es/affiliate_content/B07C37W5DZ/618jjAxwv1L._AC_SL1500_.jpg" alt="Walkie Talkies Motorola T62, ideales para radioafición y comunicación en exteriores." width="500px" />
+</p>
 
 En este mundo cada vez más globalizado, la comunicación es esencial. Ya sea que estés en una excursión, haciendo senderismo o simplemente disfrutando de tu hobby de la radio, el Walkie Motorola T62 es el dispositivo ideal para mantener una comunicación clara y segura.
 
