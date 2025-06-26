@@ -238,21 +238,22 @@ def fetch_topic_and_description():
 
     try:
         topic_data = lines[0]
-        if len(topic_data) != 2:
-            raise ValueError("Line does not contain exactly 2 values.")
-        elif ("http://" in topic_data[1] or "https://" in topic_data[1]):
-            affiliate_item_id, affiliate_url = topic_data
+        if len(topic_data) == 1:
+            affiliate_item_id = topic_data[0]
+            affiliate_url = None
             topic_idea = None
             description = None
             content_type = "affiliate"
-        else:
+        elif len(topic_data) == 2:
             topic_idea, description = topic_data
             content_type = "article"
             affiliate_url = None
             affiliate_item_id = None
+        else:
+            raise ValueError("Line does not contain exactly 1 or 2 values.")
     except ValueError as e:
         content_type = handle_invalid_csv_line(lines, topic_data, e)
-        return fetch_topic_and_description()  # recursive call to fetch the next valid topic
+        return fetch_topic_and_description()  # recursive call to fetch the
     
     if content_type == "affiliate":
         logging.info(f"🌐 Content type is affiliate for ID: {affiliate_item_id}")
@@ -261,6 +262,22 @@ def fetch_topic_and_description():
         # List all files in the affiliate_folder
         files_in_affiliate_folder = os.listdir(affiliate_folder)
         logging.info(f"Files in affiliate folder: {files_in_affiliate_folder}")
+
+        # Load the affiliate product info text
+        affiliate_text_path = os.path.join(AFFILIATE_CONTENT_DIRECTORY, affiliate_item_id , affiliate_item_id + ".txt")
+        with open(affiliate_text_path, 'r', encoding='utf-8') as f:
+            affiliate_text = f.read()
+
+        try:
+            with open(affiliate_text_path, 'r', encoding='utf-8') as f:
+                first_line = f.readline().strip()
+            if first_line.startswith("http://") or first_line.startswith("https://"):
+                affiliate_url = first_line
+            else:
+                raise ValueError(f"❌ Invalid affiliate URL in first line of {affiliate_text_path}: {first_line}")
+        except Exception as e:
+            logging.error(f"❌ Error reading affiliate URL from {affiliate_text_path}: {e}")
+            raise
 
         # Prepare prompt for OpenAI
         # Load the prompt template and format placeholders first
@@ -272,11 +289,6 @@ def fetch_topic_and_description():
             WEBSITE_AUDIENCE=WEBSITE_AUDIENCE,
             WEBSITE_LANGUAGE=WEBSITE_LANGUAGE
         )
-
-        # Load the affiliate product info text
-        affiliate_text_path = os.path.join(AFFILIATE_CONTENT_DIRECTORY, affiliate_item_id , affiliate_item_id + ".txt")
-        with open(affiliate_text_path, 'r', encoding='utf-8') as f:
-            affiliate_text = f.read()
 
         # Combine prompt and affiliate product info
         prompt = prompt_template + "\n\nProduct Information:\n" + affiliate_text
@@ -318,7 +330,9 @@ def fetch_topic_and_description():
         global CURRENT_AFFILIATE_URL
         CURRENT_AFFILIATE_URL = affiliate_url
         logging.info(f"✅ Affiliate URL set for ID {affiliate_item_id}: {affiliate_url}")
-
+        
+        topic_data = [affiliate_item_id, affiliate_url]
+        
         return topic_idea, description, content_type, affiliate_item_id
 
     elif content_type == "article":
