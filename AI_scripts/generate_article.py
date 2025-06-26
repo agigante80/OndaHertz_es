@@ -491,12 +491,36 @@ def get_article_content(topic_idea, description, image_path, content_type, affil
             logging.error(f"❌ No image file found in {affiliate_folder}")
             return None
 
-        image_file = image_files[0]
-        image_path = os.path.join(affiliate_folder, image_file)
-        image_url = f"{WEBSITE_URL}{affiliate_folder}/{image_file}"
+        original_image_file = image_files[0]
+        original_image_path = os.path.join(affiliate_folder, original_image_file)
 
+        # Prepare sanitized topic and paths with original extension
+        sanitized_topic = CURRENT_DATE + "_" + topic_idea.replace(' ', '_').replace("'", "")
+        original_ext = os.path.splitext(original_image_file)[1]  # e.g. '.jpg', '.png'
+        sanitised_original_image_path = os.path.join(AI_IMAGES_DIRECTORY, f"{sanitized_topic}_original{original_ext}")
+        resized_image_path = os.path.join(AI_IMAGES_DIRECTORY, f"{sanitized_topic}{original_ext}")
+
+        # Copy original image to AI_IMAGES_DIRECTORY with sanitized name
+        try:
+            shutil.copy2(original_image_path, sanitised_original_image_path)
+            logging.info(f"✅ Original image copied to {sanitised_original_image_path}")
+        except Exception as e:
+            logging.error(f"❌ Failed to copy original image: {e}")
+
+        # Resize the image to 500px width, maintaining aspect ratio, save resized copy
+        try:
+            with Image.open(sanitised_original_image_path) as img:
+                w_percent = (500 / float(img.width))
+                h_size = int((float(img.height) * float(w_percent)))
+                resized_img = img.resize((500, h_size), Image.LANCZOS)
+                resized_img.save(resized_image_path)
+                logging.info(f"✅ Resized affiliate image saved to {resized_image_path}")
+        except Exception as e:
+            logging.error(f"❌ Failed to resize affiliate image {resized_image_path}: {e}")
+
+        image_url = f"{WEBSITE_URL}{resized_image_path}"
         # Generate alt text for the image
-        image_alt_text = generate_image_alt_text(topic_idea, description, image_path)
+        image_alt_text = generate_image_alt_text(topic_idea, description, resized_image_path)
 
         # Get all other files (e.g., PDFs)
         other_files = [f for f in os.listdir(affiliate_folder) if not f.lower().endswith(('.png', '.jpg', '.jpeg', '.gif', '.txt'))]
@@ -505,12 +529,7 @@ def get_article_content(topic_idea, description, image_path, content_type, affil
         # Load the affiliate URL
         affiliate_url = CURRENT_AFFILIATE_URL
 
-        logging.info(f"✅ [Affiliate Content] Topic idea: {topic_idea}")
-        logging.info(f"✅ [Affiliate Content] Description: {description}")
-        logging.info(f"✅ [Affiliate Content] Image URL: {image_url}")
-        logging.info(f"✅ [Affiliate Content] Image Alt text: {image_alt_text}")
-        logging.info(f"✅ [Affiliate Content] Other File URLs: {other_file_urls}")
-        logging.info(f"✅ [Affiliate Content] Affiliate URL: {affiliate_url}")
+        logging.info(f"🔄 Requesting OpenAI to generate affiliate content for topic: {topic_idea}")
 
         # Load the prompt
         prompt = load_prompt("AI_scripts/prompts/generate_affiliate_article.txt").format(
@@ -538,6 +557,7 @@ def get_article_content(topic_idea, description, image_path, content_type, affil
             max_tokens=3500,
             n=1,
             temperature=0.7,
+            frequency_penalty=0.1
         )
 
         article_content = response.choices[0].message.content.strip()
