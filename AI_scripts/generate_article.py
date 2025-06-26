@@ -313,7 +313,7 @@ def fetch_topic_and_description():
         topic_data = lines[0]
         if len(topic_data) != 2:
             raise ValueError("Line does not contain exactly 2 values.")
-        if ("http://" in topic_data[1] or "https://" in topic_data[1]):
+        elif ("http://" in topic_data[1] or "https://" in topic_data[1]):
             affiliate_item_id, affiliate_url = topic_data
             topic_idea = None
             description = None
@@ -394,7 +394,7 @@ def fetch_topic_and_description():
 
         return topic_idea, description, content_type, affiliate_item_id
 
-    if content_type == "article":
+    elif content_type == "article":
         logging.info(f"🌐 Content type is article")
         return topic_idea, description, content_type, None
     
@@ -663,6 +663,7 @@ def get_article_content(topic_idea, description, image_path, content_type, affil
         image_alt_text = generate_image_alt_text(topic_idea, description, image_path)
         logging.info(f"✅ Generated alt text: {image_alt_text}")
 
+        logging.info(f"🔄 Requesting OpenAI to generate article content for topic: {topic_idea}")
         prompt = load_prompt("AI_scripts/prompts/generate_article.txt").format(
             WEBSITE_URL=WEBSITE_URL,
             WEBSITE_TITLE=WEBSITE_TITLE,
@@ -774,7 +775,7 @@ def create_article_with_image():
             if content_type == "affiliate":
                 logging.info("✅ Content type is affiliate, skipping image generation...")
                 image_path = None  # No image path needed for affiliate content
-            if content_type == "article":
+            elif content_type == "article":
                 logging.info("🔄 Use the topic idea and description to request an image...")
                 # Use the topic idea and description to request an image
                 image_path = get_image_create_file_and_notify(topic_idea, description)
@@ -819,15 +820,14 @@ def create_article_with_image():
             else:
                 logging.warning("⚠️ No INDEXNOW_API_KEY found. IndexNow notification will not be sent.")
 
-
-
-            logging.info("🔄 Add the topic idea and description to the archived topics file...")
             # Add the topic idea and description to the archived topics file
             write_to_csv(FILE_PATH_ARCHIVED_TOPICS, article_url, topic_idea, description)
+            logging.info("✅ Added topic idea and description to archived topics file.")
 
             if content_type == "affiliate":
                 # Add the affiliate article ID to the archived topics file
-                write_to_csv(FILE_PATH_ARCHIVED_TOPICS, article_url, affiliate_article_id, CURRENT_AFFILIATE_URL)
+                write_to_csv(FILE_PATH_ARCHIVED_AFFILIATE_TOPICS, article_url, affiliate_article_id, CURRENT_AFFILIATE_URL)
+                logging.info(f"✅ Added affiliate article ID {affiliate_article_id} to archived topics file.")
 
             logging.info("🔄 Remove the used line from the new topics file...")
             # Remove the used line from the new topics file
