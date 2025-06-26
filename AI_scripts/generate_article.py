@@ -542,6 +542,7 @@ def get_article_content(topic_idea, description, image_path, content_type, affil
 
         article_content = response.choices[0].message.content.strip()
         logging.info(f"✅ [Affiliate Content] Generated Article content: {article_content}")
+        article_content = article_content.replace('```markdown', '').replace('```', '').replace('``', '').replace('"""', '"').replace('""', '"').strip()
 
 
         # Apply the same filename logic as for generic articles
