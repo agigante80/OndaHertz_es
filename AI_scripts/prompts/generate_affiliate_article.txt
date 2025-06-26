@@ -1,52 +1,57 @@
-### Objetivo: Generar un artículo atractivo e informativo sobre un producto con fines de marketing de afiliados en **ESPAÑOL**.
+### Objective: Generate an engaging and informative affiliate marketing article in {WEBSITE_LANGUAGE}.
 
-#### Instrucciones:
+#### Instructions:
 
-*   Se te proporcionará una idea de tema del producto, una breve descripción, una URL de imagen, un texto alternativo para la imagen y un enlace de afiliado.
-*   Tu tarea es crear un artículo atractivo que informe al lector sobre el producto y lo motive a realizar una compra a través del enlace de afiliado proporcionado.
-*   El artículo debe estar redactado en formato Markdown compatible con GitHub.
-*   **El artículo ABSOLUTAMENTE DEBE ESTAR ESCRITO EN ESPAÑOL. GENERA EL ARTÍCULO ÚNICAMENTE EN ESPAÑOL.**
+* You will be provided with a product topic idea, a brief description, an image URL, alt text for the image, and an affiliate link.
+* Your task is to create an appealing article that informs readers about the product and motivates them to purchase through the provided affiliate link.
+* The article must be written in {WEBSITE_LANGUAGE} and formatted in Markdown compatible with GitHub.
 
-#### Entrada:
+#### Input:
 
-*   Idea de Tema: {topic_idea}
-*   Descripción: {description}
-*   URL de la Imagen: {image_url}
-*   Texto Alternativo de la Imagen: {image_alt_text}
-*   URL de Afiliado: {affiliate_url}
+* Topic Idea: {topic_idea}
+* Description: {description}
+* Image URL: {image_url}
+* Image Alt Text: {image_alt_text}
+* Affiliate URL: {affiliate_url}
 
-#### Requisitos del Artículo:
+#### Article Requirements:
 
-*   Escribe en un tono profesional, informativo y atractivo. Enfócate en los beneficios del producto y en cómo puede resolver los problemas del lector. Utiliza ejemplos del mundo real y estudios de caso para ilustrar el valor del producto.
-*   Enfatiza las características clave del producto, su facilidad de uso, su fiabilidad y su relación calidad-precio.
-*   Optimiza el artículo para SEO utilizando palabras clave relevantes.
+* Write in a professional, informative, and engaging tone. Focus on the product’s benefits and how it solves the reader’s problems. Use real-world examples and case studies to illustrate value.
+* Highlight key product features, ease of use, reliability, and value for money.
+* Optimize the article for SEO using relevant keywords from: {WEBSITE_KEYWORDS}.
+* Tailor the content to the audience: {WEBSITE_AUDIENCE}.
+* Include relevant links to other resources if available in {other_file_urls}.
 
-#### Estructura del Artículo:
+#### Article Structure:
 
-1.  **Front Matter:**
+1. **Front Matter:**
 
     ```markdown
     ---
     layout: post
-    title: <Genera un título para el artículo (máximo 50 caracteres, sin símbolos)>
-    subtitle: <Genera un resumen del artículo (máximo 140 caracteres)>
+    title: <Generate a title for the article (max 50 characters, no symbols)>
+    subtitle: <Generate a summary of the article (max 140 characters)>
     excerpt_image: {image_url}
-    categories: <Genera 2 categorías relevantes del mundo de la radioafición, separadas por comas y dentro de corchetes. Ejemplo: [radioafición, tecnología]>
-    tags: <Genera 4 palabras clave relevantes para el artículo, separadas por comas y dentro de corchetes. Ejemplo: [radio, walkie talkie, motorola, pmr446]>
+    categories: <Generate 2 relevant categories related to the website theme, comma separated in brackets>
+    tags: <Generate 4 relevant keywords for the article, comma separated in brackets>
     ---
+
     ```
 
-2.  **Cuerpo del Artículo:**
+2. **Body:**
 
-    *   Comienza con una introducción atractiva que capte la atención del lector y presente los principales beneficios del producto.
-    *   Proporciona una descripción detallada del producto, destacando sus características clave y beneficios. Usa la información de la descripción proporcionada y cualquier detalle que puedas obtener de la imagen.
-    *   Incluye la siguiente imagen en el artículo usando la sintaxis Markdown:
+* Start with an engaging introduction highlighting the main benefits of the product.
+* Provide a detailed description emphasizing key features and advantages, using the provided description and image details.
+* Include the product image using Markdown syntax: `![{image_alt_text}]({image_url} "{image_alt_text}")`
+* Clearly explain the benefits and real-world use cases.
+* Include a clear and compelling call to action encouraging readers to purchase via the affiliate link. Disclose that it is an affiliate link.
 
-        `![{image_alt_text}]({image_url})`
+    `[Buy Now]({affiliate_url})`
 
-    *   Explica claramente los beneficios de usar el producto y proporciona casos de uso del mundo real para ilustrar su valor.
-    *   Incluye un llamado a la acción claro y atractivo que anime al lector a comprar el producto a través del enlace de afiliado. Asegúrate de dejar claro que se trata de un enlace de afiliado y que podrías ganar una comisión si realizan una compra.
+* Maintain honesty and ethics; avoid false claims or exaggerations.
 
-        `[link a Amazon ES]({affiliate_url})`
+#### Website Context:
 
-*   Sé honesto y ético en tu descripción del producto. No hagas afirmaciones falsas ni exageres sus beneficios.
+This article is for {WEBSITE_TITLE} ({WEBSITE_URL}), a site focused on {WEBSITE_DESCRIPTION}.
+Do not change or correct the value of any URL.
+ONLY provide the article content in {WEBSITE_LANGUAGE} without any labels, prefixes, or additional explanation.

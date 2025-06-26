@@ -190,8 +190,6 @@ def retry_with_backoff(func, max_retries=3, initial_delay=1, backoff_factor=2, *
                 raise
 
 def send_telegram_message(message):
-    bot_token = TELEGRAM_BOT_TOKEN
-    chat_id = TELEGRAM_CHAT_ID
     """Send a message to a Telegram chat using a bot with retry logic.
     
     Args:
@@ -199,27 +197,25 @@ def send_telegram_message(message):
         chat_id (str): The Telegram chat ID.
         message (str): The message to send.
     """
-    if not bot_token or not chat_id:
+    if not TELEGRAM_BOT_TOKEN or not TELEGRAM_CHAT_ID:
         logging.warning("⚠️ [Telegram Warning] Telegram message not sent due to missing TELEGRAM_BOT_TOKEN or TELEGRAM_CHAT_ID.")
         return
 
     message = f"{WEBSITE_URL}\n{message}"  # Add the website to the message
 
-    url = f"https://api.telegram.org/bot{bot_token}/sendMessage"
-    data = {'chat_id': chat_id, 'text': message}
+    url = f"https://api.telegram.org/bot{TELEGRAM_BOT_TOKEN}/sendMessage"
+    data = {'chat_id': TELEGRAM_CHAT_ID, 'text': message}
 
     def send_request():
         response = requests.post(url, data=data, timeout=10)
         if response.status_code == 200:
-            logging.info(f"✅ [Telegram] Message sent successfully to chat ID: {chat_id}")
+            logging.info(f"✅ [Telegram] Message sent successfully to chat ID: {TELEGRAM_CHAT_ID}")
         else:
             raise Exception(f"Failed to send message. Status code: {response.status_code}, Response: {response.text}")
 
     retry_with_backoff(send_request)
 
 def get_topics_create_csv_and_notify():
-    api_key = OPENAI_API_KEY
-    file_path = FILE_PATH_NEW_TOPICS
     """Generate 10 blog topic ideas using OpenAI, save them to a CSV file, and notify via Telegram.
     
     Args:
@@ -241,7 +237,7 @@ def get_topics_create_csv_and_notify():
         WEBSITE_LANGUAGE=WEBSITE_LANGUAGE
     )
     client = OpenAI(
-            api_key=api_key,  # Pass the api_key directly
+            api_key=OPENAI_API_KEY,  # Pass the api_key directly
         )    
     response = client.chat.completions.create(
     model="gpt-4.1",
@@ -274,7 +270,7 @@ def get_topics_create_csv_and_notify():
     logging.info(topics)
     
     # Write topics to the CSV file
-    with open(file_path, 'a', newline='') as file:
+    with open(FILE_PATH_NEW_TOPICS, 'a', newline='') as file:
         writer = csv.writer(file, quoting=csv.QUOTE_ALL)
         for line in topics.split('\n'):
             # Split the line into fields, handling quoted strings properly
@@ -290,8 +286,6 @@ def get_topics_create_csv_and_notify():
     return topics
 
 def fetch_topic_and_description():
-    api_key = OPENAI_API_KEY
-    file_path = FILE_PATH_NEW_TOPICS
     """Fetch the next topic idea and description from a CSV file.
     If the topic idea is an ID and https url, then load content from the affiliate folder and generate an affiliate article
     If the topic is idea and description then generate an article
@@ -306,7 +300,7 @@ def fetch_topic_and_description():
     Returns:
         tuple: A tuple containing the topic idea and description.
     """
-    with open(file_path, 'r') as infile:
+    with open(FILE_PATH_NEW_TOPICS, 'r') as infile:
         reader = csv.reader(infile)
         lines = list(reader)
 
@@ -360,7 +354,7 @@ def fetch_topic_and_description():
         # Combine prompt and affiliate product info
         prompt = prompt_template + "\n\nProduct Information:\n" + affiliate_text
         try:
-            client = OpenAI(api_key=api_key)
+            client = OpenAI(api_key=OPENAI_API_KEY)
             response = client.chat.completions.create(
             model="gpt-4.1",
             messages=[
@@ -413,7 +407,7 @@ def handle_invalid_csv_line(lines, topic_data, e):
     logging.error(f"❌ Invalid CSV format: {e}")
         # Move the invalid line to the ERROR topics file
     with open(FILE_PATH_ERROR_TOPICS, 'a', newline='') as error_file:
-        error_file.write(','.join(topic_data) + '\n')
+        error_file.write(','.join(str(item) if item is not None else '' for item in topic_data) + '\n')
     logging.info(f"✅ Invalid line moved to ERROR topics: {topic_data}")
     content_type = "error"
         # Notify via Telegram about the line error
@@ -426,8 +420,6 @@ def handle_invalid_csv_line(lines, topic_data, e):
     return content_type
 
 def get_image_create_file_and_notify(topic_idea, description):
-    api_key = OPENAI_API_KEY
-    file_path = AI_IMAGES_DIRECTORY
     """Generate an image using OpenAI, save it locally, and notify via Telegram with retry logic.
     
     Args:
@@ -454,7 +446,7 @@ def get_image_create_file_and_notify(topic_idea, description):
     logging.info(f"🔄 Generating image with prompt: {prompt}")
 
     def generate_image():
-        client = OpenAI(api_key=api_key)
+        client = OpenAI(api_key=OPENAI_API_KEY)
         response = client.images.generate(
             model="dall-e-3",
             prompt=prompt,
@@ -477,7 +469,7 @@ def get_image_create_file_and_notify(topic_idea, description):
         image_content = retry_with_backoff(download_image)
 
         sanitized_topic = CURRENT_DATE + "_" + topic_idea.replace(' ', '_').replace("'", "")
-        original_image_path = os.path.join(file_path, f"{sanitized_topic}_1024x1024.png")
+        original_image_path = os.path.join(AI_IMAGES_DIRECTORY, f"{sanitized_topic}_1024x1024.png")
         with open(original_image_path, 'wb') as image_file:
             image_file.write(image_content)
         logging.info(f"✅ [Image Download] Original image downloaded and saved to {original_image_path}")
@@ -488,7 +480,7 @@ def get_image_create_file_and_notify(topic_idea, description):
             resized_image = original_image.resize(resized_dimensions)
 
             # Save the resized image
-            resized_image_path = os.path.join(file_path, f"{sanitized_topic}.png")
+            resized_image_path = os.path.join(AI_IMAGES_DIRECTORY, f"{sanitized_topic}.png")
             resized_image.save(resized_image_path)
             logging.info(f"✅ [Image Resize] Resized image saved to {resized_image_path}")
 
@@ -498,7 +490,6 @@ def get_image_create_file_and_notify(topic_idea, description):
         return None
     
 def generate_image_alt_text(topic_idea, description, image_path):
-    api_key = OPENAI_API_KEY
     """Generate alt text for an image using OpenAI Vision API and a prompt template.
 
     Args:
@@ -526,7 +517,7 @@ def generate_image_alt_text(topic_idea, description, image_path):
             description=description
         )
 
-        client = OpenAI(api_key=api_key)
+        client = OpenAI(api_key=OPENAI_API_KEY)
         response = client.chat.completions.create(
             model="gpt-4o-mini",
             messages=[
@@ -560,7 +551,6 @@ def generate_image_alt_text(topic_idea, description, image_path):
         return "Alt text generation failed."
 
 def notify_indexnow(article_url):
-    api_key = INDEXNOW_API_KEY
     """Notify IndexNow servers about a new or updated URL with retry logic.
     
     Args:
@@ -580,7 +570,7 @@ def notify_indexnow(article_url):
     ]
 
     def notify_server(server_url):
-        full_url = f"{server_url}?url={article_url}&key={api_key}"
+        full_url = f"{server_url}?url={article_url}&key={INDEXNOW_API_KEY}"
         response = requests.get(full_url, timeout=10)
         if response.status_code == 200:
             logging.info(f"✅ [IndexNow] Successfully notified {server_url} for URL: {article_url}")
@@ -630,6 +620,12 @@ def get_article_content(topic_idea, description, image_path, content_type, affil
 
         # Load the prompt
         prompt = load_prompt("AI_scripts/prompts/generate_affiliate_article.txt").format(
+            WEBSITE_URL=WEBSITE_URL,
+            WEBSITE_TITLE=WEBSITE_TITLE,
+            WEBSITE_DESCRIPTION=WEBSITE_DESCRIPTION,
+            WEBSITE_KEYWORDS=WEBSITE_KEYWORDS,
+            WEBSITE_AUDIENCE=WEBSITE_AUDIENCE,
+            WEBSITE_LANGUAGE=WEBSITE_LANGUAGE,
             topic_idea=topic_idea,
             description=description,
             image_url=image_url,
@@ -637,13 +633,6 @@ def get_article_content(topic_idea, description, image_path, content_type, affil
             other_file_urls=other_file_urls,
             affiliate_url=affiliate_url
         )
-
-        # Add instructions to include a link to the affiliate URL
-        prompt += f"\n\nInclude a link to the product: [Buy Now]({affiliate_url})\n\n"
-
-        # Skip the "other files" section if the dictionary is empty
-        if not other_file_urls:
-            prompt = prompt.replace("Si el diccionario `other_file_urls` está vacío, omite esta sección. De lo contrario, para cada archivo en el diccionario `other_file_urls`, menciónalo en el artículo y proporciona un enlace usando la siguiente sintaxis Markdown:\n\n`[Enlace a {Nombre del Archivo}]({URL del Archivo}) - [Breve descripción del contenido del archivo]`", "")
 
         client = OpenAI(api_key=OPENAI_API_KEY)
         response = client.chat.completions.create(
@@ -663,12 +652,10 @@ def get_article_content(topic_idea, description, image_path, content_type, affil
 
         # Apply the same filename logic as for generic articles
         sanitized_topic = topic_idea.replace(' ', '_').replace("'", "").replace('"', '')  # Remove quotes
-        article_file_path = os.path.join(AI_ARTICLES_DIRECTORY, f"{CURRENT_DATE}-{sanitized_topic}.md")
-
+        article_file_path = os.path.join(AI_ARTICLES_DIRECTORY, f"""{CURRENT_DATE}-{topic_idea.replace(' ', '_').replace('"', '').replace(",", '').replace(".", '').replace("'", '')}.md""")
         with open(article_file_path, 'w') as article_file:
             article_file.write(article_content)
-
-        logging.info(f"✅ Affiliate article for '{topic_idea}' created and saved to {article_file_path}")
+        logging.info(f"✅ Article for '{topic_idea}' created and saved to {article_file_path}")
 
         return article_file_path
     else:
@@ -846,6 +833,8 @@ def create_article_with_image():
             # Remove the used line from the new topics file
             with open(FILE_PATH_NEW_TOPICS, 'r') as new_file:
                 lines = new_file.readlines()
+
+            with open(FILE_PATH_NEW_TOPICS, 'w', newline='') as new_file:
                 new_file.writelines(lines[1:])
 
             logging.info(f"✅ Topic '{topic_idea}' archived and removed from new topics.")
@@ -877,11 +866,10 @@ def main():
     ensure_directories_exist(AI_TOPICS_DIRECTORY, AI_IMAGES_DIRECTORY, AI_ARTICLES_DIRECTORY)
     
     # Ensure the files are created if they don't exist
-    """initialize_csv(FILE_PATH_NEW_TOPICS)
+    initialize_csv(FILE_PATH_NEW_TOPICS)
     initialize_csv(FILE_PATH_ARCHIVED_TOPICS)
     initialize_csv(FILE_PATH_ERROR_TOPICS)
-    initialize_csv(FILE_PATH_ARCHIVED_AFFILIATE_TOPICS)"""
-    FILE_PATH_NEW_TOPICS, FILE_PATH_ARCHIVED_TOPICS, FILE_PATH_ERROR_TOPICS, FILE_PATH_ARCHIVED_AFFILIATE_TOPICS = initialize_files()
+    initialize_csv(FILE_PATH_ARCHIVED_AFFILIATE_TOPICS)
    
     # REQUESTING THE ARTICLE!!!
     logging.info("🔄 Initializing OpenAI requests...")
