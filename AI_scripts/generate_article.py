@@ -149,12 +149,12 @@ def initialize_csv(file_path):
     except Exception as e:
         logging.error(f"❌ [CSV Initialization Error] Unexpected error while initializing CSV file: {file_path}. Error: {e}")
 
-def write_to_csv(file_path, topic_idea, description):
+def write_to_csv(file_path, article_url, topic_idea, description):
     try:
         with open(file_path, 'a', newline='') as outfile:
             writer = csv.writer(outfile, quoting=csv.QUOTE_ALL)
-            writer.writerow([topic_idea, description])
-        logging.info(f"✅ [CSV Write] Topic: '{topic_idea}', Description: '{description}' successfully written to file: {file_path}")
+            writer.writerow([article_url, topic_idea, description])
+        logging.info(f"✅ [CSV Write] Article URL: '{article_url}', Topic: '{topic_idea}', Description: '{description}' successfully written to file: {file_path}")
     except Exception as e:
         logging.error(f"❌ [CSV Write Error] Error writing to file {file_path}: {e}")
 
@@ -596,8 +596,6 @@ def notify_indexnow(article_url):
     return True
 
 def get_article_content(topic_idea, description, image_path, content_type, affiliate_article_id):
-    api_key = OPENAI_API_KEY
-
     """Generate a blog article using OpenAI and save it to a file."""
     if content_type == "affiliate":
         logging.info("✅ Content type is affiliate, generating affiliate article...")
@@ -647,7 +645,7 @@ def get_article_content(topic_idea, description, image_path, content_type, affil
         if not other_file_urls:
             prompt = prompt.replace("Si el diccionario `other_file_urls` está vacío, omite esta sección. De lo contrario, para cada archivo en el diccionario `other_file_urls`, menciónalo en el artículo y proporciona un enlace usando la siguiente sintaxis Markdown:\n\n`[Enlace a {Nombre del Archivo}]({URL del Archivo}) - [Breve descripción del contenido del archivo]`", "")
 
-        client = OpenAI(api_key=api_key)
+        client = OpenAI(api_key=OPENAI_API_KEY)
         response = client.chat.completions.create(
             model="gpt-4",
             messages=[
@@ -690,7 +688,7 @@ def get_article_content(topic_idea, description, image_path, content_type, affil
             image_path=image_path,
             image_alt_text=image_alt_text
         )
-        client = OpenAI(api_key=api_key)    
+        client = OpenAI(api_key=OPENAI_API_KEY)    
         response = client.chat.completions.create(
             model="gpt-4.1",
             messages=[
@@ -759,9 +757,6 @@ def initialize_files(*file_paths):
     return file_paths
 
 def create_article_with_image():
-    file_path_new = FILE_PATH_NEW_TOPICS
-    file_path_archived = FILE_PATH_ARCHIVED_TOPICS
-    indexnow_api_key = INDEXNOW_API_KEY
     """Generate an article with an image, archive the topic, and notify via Telegram and IndexNow.
 
     Args:
@@ -808,20 +803,7 @@ def create_article_with_image():
             # Request the article content
             article_file_path = get_article_content(topic_idea, description, image_path, content_type, affiliate_article_id)
 
-            logging.info("🔄 Add the topic idea and description to the archived topics file...")
-            # Add the topic idea and description to the archived topics file
-            write_to_csv(file_path_archived, topic_idea, description)
-
-            logging.info("🔄 Remove the used line from the new topics file...")
-            # Remove the used line from the new topics file
-            with open(file_path_new, 'r') as new_file:
-                lines = new_file.readlines()
-            with open(file_path_new, 'w') as new_file:
-                new_file.writelines(lines[1:])
-
-            logging.info(f"✅ Topic '{topic_idea}' archived and removed from new topics.")
-
-            # MOVED: Construct article URL and notify via Telegram & IndexNow here (at the end of create_article_with_image)
+            # Construct article URL and notify via Telegram & IndexNow here (at the end of create_article_with_image)
 
             with open(article_file_path, 'r') as file:
                 article_content = file.read()
@@ -845,10 +827,30 @@ def create_article_with_image():
             send_telegram_message(f"New article for '{topic_idea}' has been generated and saved. Read it here: {article_url}")
             logging.info(f"✅ New article for '{topic_idea}' has been generated and saved. Read it here: {article_url}")
 
-            if indexnow_api_key:
+            if INDEXNOW_API_KEY:
                 notify_indexnow(article_url)
             else:
                 logging.warning("⚠️ No INDEXNOW_API_KEY found. IndexNow notification will not be sent.")
+
+
+
+            logging.info("🔄 Add the topic idea and description to the archived topics file...")
+            # Add the topic idea and description to the archived topics file
+            write_to_csv(FILE_PATH_ARCHIVED_TOPICS, article_url, topic_idea, description)
+
+            if content_type == "affiliate":
+                # Add the affiliate article ID to the archived topics file
+                write_to_csv(FILE_PATH_ARCHIVED_TOPICS, article_url, affiliate_article_id, CURRENT_AFFILIATE_URL)
+
+            logging.info("🔄 Remove the used line from the new topics file...")
+            # Remove the used line from the new topics file
+            with open(FILE_PATH_NEW_TOPICS, 'r') as new_file:
+                lines = new_file.readlines()
+                new_file.writelines(lines[1:])
+
+            logging.info(f"✅ Topic '{topic_idea}' archived and removed from new topics.")
+
+
 
             break  # Exit the loop if successful
 
