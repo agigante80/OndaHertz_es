@@ -5,6 +5,10 @@ from datetime import datetime
 # This file contains the necessary configurations and environment variables
 # for the AI scripts to function correctly, including API keys, file paths, and other settings.
 
+# You can find working production examples in the following github repositories:
+# https://github.com/agigante80/OndaHertz_es website: https://www.ondahertz.es/
+# https://github.com/agigante80/galena_es website: https://www.galena.es/
+
 # The following variables must be set as environment variables for security reasons.
 OPENAI_API_KEY = os.getenv("OPENAI_API_KEY")
 TELEGRAM_BOT_TOKEN = os.getenv("TELEGRAM_BOT_TOKEN")
@@ -54,6 +58,10 @@ WEBSITE_KEYWORDS = "radioafición, tecnología, comunicación global, equipos de
 WEBSITE_AUDIENCE = "entusiastas de la radioafición, aficionados a la tecnología, lectores interesados en la comunicación global"
 WEBSITE_LANGUAGE = "Spanish"  # Define the main website language for the content
 
+
+
+# Settting the variables for the current date and time
 CURRENT_DATE = datetime.now().strftime("%Y-%m-%d-%H%M")
 
+# Settting the variables for the affiliate content
 AFFILIATE_CONTENT_DIRECTORY = "affiliate_content/"  
