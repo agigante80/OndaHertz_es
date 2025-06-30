@@ -1,7 +1,7 @@
 ---
 layout: post
-title: Portabilidad total: Radioafición sin límites
-subtitle: Guía práctica para operar desde cualquier lugar con equipos ligeros y eficientes.
+title: "Portabilidad total: Radioafición sin límites"
+subtitle: "Guía práctica para operar desde cualquier lugar con equipos ligeros y eficientes."
 excerpt_image: https://www.ondahertz.es/assets/images/2025-06-28-1746_Portabilidad_total_en_radioaficion.png
 categories: [radioafición, tecnología]
 tags: [portabilidad, equipos ligeros, operación portátil, antenas]
