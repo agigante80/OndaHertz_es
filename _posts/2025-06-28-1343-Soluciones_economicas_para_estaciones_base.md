@@ -1,7 +1,7 @@
 ---
 layout: post
-title: Soluciones económicas para tu estación base
-subtitle: Descubre cómo montar una estación eficiente sin gastar mucho dinero.
+title: "Soluciones económicas para tu estación base"
+subtitle: "Descubre cómo montar una estación eficiente sin gastar mucho dinero."
 excerpt_image: https://www.ondahertz.es/assets/images/2025-06-28-1343_Soluciones_economicas_para_estaciones_base.png
 categories: [radioafición, tecnología]
 tags: [estación base, soluciones económicas, equipos de radio, antenas]
