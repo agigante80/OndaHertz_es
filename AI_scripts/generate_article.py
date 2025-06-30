@@ -704,7 +704,7 @@ def create_article_with_image():
                 logging.warning("⚠️ Categories extraction failed. Defaulted to /articles.")
 
             # Construct URL for your blog's format
-            article_url = f"{WEBSITE_URL}{category_path}/{CURRENT_DATE.replace('-', '/')}-{topic_idea.replace(' ', '_')}.html"
+            article_url = f"{WEBSITE_URL}{category_path}/{CURRENT_DATE.replace('-', '/')}-{topic_idea.replace(':', '-').replace(' ', '_')}.html"
 
             # Replace single quotes with an empty string as required
             article_url = article_url.replace("'", '')
